@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.gb.jcore.hm1.sample","l":"Main"},{"p":"ru.gb.jcore.hm1.regular","l":"Module"},{"p":"ru.gb.jcore.hm1.regular","l":"View"}];updateSearchResults();

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.gb.jcore.hm1.regular"},{"l":"ru.gb.jcore.hm1.sample"}];updateSearchResults();
