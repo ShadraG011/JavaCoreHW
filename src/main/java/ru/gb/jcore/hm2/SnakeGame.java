@@ -19,10 +19,12 @@ public class SnakeGame extends JFrame {
     final static int KEY_UP = 38;
     final static int KEY_RIGHT = 39;
     final static int KEY_DOWN = 40;
+    final static int KEY_UP_SPEED_W = 87;
+    final static int KEY_UP_SPEED_S = 83;
     final int START_SNAKE_SIZE = 5;
     final int START_SNAKE_X = CANVAS_WIDTH / 2;
     final int START_SNAKE_Y = CANVAS_HEIGHT / 2;
-    final int SNAKE_DELAY = 100;
+    private int snakeDelay = 100;
     int snakeSize = 0;
     static boolean gameOver = false;
     Canvas canvas;
@@ -46,6 +48,8 @@ public class SnakeGame extends JFrame {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 snake.setDirection(e.getKeyCode());
+                upOrDownSpeed(e.getKeyCode());
+
             }
         });
         add(canvas);
@@ -78,7 +82,15 @@ public class SnakeGame extends JFrame {
                 setTitle(GAME_OVER_MSG);
             }
             canvas.repaint();
-            sleep(SNAKE_DELAY);
+            sleep(snakeDelay);
+        }
+    }
+
+    private void upOrDownSpeed(int upOrDown) {
+        if (upOrDown == KEY_UP_SPEED_W && snakeDelay > 10) {
+            snakeDelay -= 10;
+        } else if (upOrDown == KEY_UP_SPEED_S && snakeDelay < 200) {
+            snakeDelay += 10;
         }
     }
 
@@ -96,9 +108,9 @@ public class SnakeGame extends JFrame {
             super.paint(g);
             Graphics2D g2D = (Graphics2D) g;
             g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            try{
+            try {
                 snake.paintSnake(g2D);
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 System.out.println(e.getStackTrace());
             }
             food.paintCell(g2D);
