@@ -24,40 +24,34 @@ public class ProductBuying {
 
     /**
      * Метод проверки существования покупателя
+     *
      * @param fio - фамилия, имя отчество одной строкой
      * @return покупателя, при его отсутствии возвращает null
      */
     private static Buyer checkBuyer(String fio) {
-        for (Buyer b : buyers) {
-            if (b.getFio().equals(fio)) {
-                return b;
-            }
-        }
-        return null;
+        return buyers.stream().filter(buyer -> buyer.getFio().equals(fio)).findAny().orElse(null);
     }
+
     /**
      * Метод проверки существования товара
+     *
      * @param productName - наименование товара одной строкой
      * @return товар, при его отсутствии возвращает null
      */
     private static Product checkProduct(String productName) {
-        for (Product p : products) {
-            if (p.getProductName().equals(productName)) {
-                return p;
-            }
-        }
-        return null;
+        return products.stream().filter(product -> product.getProductName().equals(productName)).findAny().orElse(null);
     }
 
     /**
      * Метод для совершения покупки
-     * @param buyerFio - ФИО
+     *
+     * @param buyerFio    - ФИО
      * @param productName - наименование товара
-     * @param count - количество товара
+     * @param count       - количество товара
      * @return заколненный объект заказа
      * @throws CustomerException - покупателя не существует
-     * @throws ProductException - товара не существует
-     * @throws CountException - ошибка ввода количества товара
+     * @throws ProductException  - товара не существует
+     * @throws CountException    - ошибка ввода количества товара
      */
     public static Order makePurchase(String buyerFio, String productName, int count) throws CustomerException, ProductException, CountException {
         Buyer buyer = checkBuyer(buyerFio);
@@ -73,15 +67,16 @@ public class ProductBuying {
 
     /**
      * Метод для начисления скидки
+     *
      * @param order - обект заказа
      * @throws TooMuchSaleException - при товаре премиум класса и скидке более 15%
      */
-    public static void assignDiscount(Order order) throws TooMuchSaleException{
+    public static void assignDiscount(Order order) throws TooMuchSaleException {
         Random rd = new Random();
 
         int randomDiscount = rd.nextInt(Discounts.values().length - 1);
 
-        if(order.getProduct().getCategory().equals("premium") && randomDiscount > 3){
+        if (order.getProduct().getCategory().equals("premium") && randomDiscount > 3) {
             order.setDiscount(Discounts.NO_DISCOUNT.getDiscount());
             throw new TooMuchSaleException("Максимальная скидка на товары премиум класса 15%");
         }
