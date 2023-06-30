@@ -7,6 +7,7 @@ public class FileWorker {
 
     /**
      * Метод для чтения файла
+     *
      * @param srcPath - путь к файлу начинаемый с src
      * @return - преобразованное из байтов (считанных из файла) число типа int
      */
@@ -16,7 +17,10 @@ public class FileWorker {
         try (BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath))) {
             byte num3 = (byte) br.read();
             while (num3 != -1) {
-                num4 = (num4 * 1000) + num3;
+                if (num3 < 0) {
+                    num4 = (num4 * 1000) + (256 + (int)(num3));
+                } else
+                    num4 = (num4 * 1000) + num3;
                 num3 = (byte) br.read();
             }
             System.out.println("Successfully");
@@ -28,7 +32,8 @@ public class FileWorker {
 
     /**
      * Метод для записи числа в файл
-     * @param srcPath - путь к файлу начинаемый с src
+     *
+     * @param srcPath  - путь к файлу начинаемый с src
      * @param fieldInt - число для записи в файл
      */
     public static void writeFile(String srcPath, int fieldInt) {
@@ -41,7 +46,7 @@ public class FileWorker {
 
         String absoluteFilePath = Path.of(srcPath).toAbsolutePath().toString();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(absoluteFilePath))) {
-            for (byte elem: fieldElements) {
+            for (byte elem : fieldElements) {
                 writer.write(elem);
             }
             System.out.println("Successfully");

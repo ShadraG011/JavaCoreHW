@@ -8,9 +8,9 @@ public class App2 {
 
         int fieldInt = 0;
         int[][] field = {
-                {1, 0, 2},
-                {1, 2, 0},
-                {1, 0, 2}
+                {1, 0, 1},
+                {1, 1, 0},
+                {1, 0, 0}
         };
 
         System.out.println("Начальное поле из цифр: ");
